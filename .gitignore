@@ -1,0 +1,11 @@
+# Libraries used
+vendor/
+
+# Tests & mutations reports
+tests/.phpunit.cache/
+tests/.mutations/
+tests/coverage/*
+
+# Custom configuration
+tests/phpunit.xml
+tests/infection.json

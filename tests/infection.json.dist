@@ -1,0 +1,29 @@
+{
+    "source": {
+        "directories": [
+            "src"
+        ]
+    },
+    "timeout": 10,
+    "logs": {
+        "text": "tests/.mutations/infection.log",
+        "summary": "tests/.mutations/summary.log",
+        "json": "tests/.mutations/infection-log.json",
+        "perMutator": "tests/.mutations/per-mutator.md",
+        "github": true,
+        "badge": {
+            "branch": "master"
+        }
+    },
+    "mutators": {
+        "global-ignore": [],
+        "@default": true,
+        "@function_signature": false,
+        "TrueValue": {
+            "ignore": [
+                "NameSpace\\*\\Class::method"
+            ]
+        }
+    },
+    "testFramework":"phpunit"
+}
