@@ -144,6 +144,28 @@ final class InstantiatorTest extends TestCase
         );
     }
 
+    /**
+     * @test
+     * @covers ::createInstance
+     */
+    public function flushes_arguments_after_instantiation_by_default(): void
+    {
+        // given a target class
+        $targetClass = ConstructorWith1ArgumentFixture::class;
+
+        // when creating an instance of it
+        $this->instantiator->assignConstructorArgument(named: 'fixture', being: new ConstructorWithoutArgumentFixture);
+        $this->instantiator->createInstance(ofClass: $targetClass);
+
+        // then the assigned arguments list should be empty
+        $assignedArgumentsAfterInstantiation = $this->instantiator->getAssignedConstructorArguments();
+        $this->assertCount(
+            expectedCount: 0,
+            haystack: $assignedArgumentsAfterInstantiation,
+            message: "Expected constructor arguments to be flushed after instantiation if not specified",
+        );
+    }
+
     public function flushProvider(): Generator
     {
         yield "Flush arguments" => [true];
@@ -170,7 +192,7 @@ final class InstantiatorTest extends TestCase
         $this->assertSame(
             expected: $flushExpectation,
             actual: $argumentsGotFlushedAfterInstantiation,
-            message: "Expected constructor arguments to be " . $flushExpectation ? '' : 'not' . "flushed after instatiation",
+            message: "Expected constructor arguments to be " . $flushExpectation ? '' : 'not' . " flushed after instantiation",
         );
     }
 }
